@@ -9,12 +9,13 @@ class GoalSeeker
     while value != goal and cycle < max_cycles
       param += step
       value = function.call param
-      # if goal - value < goal - prev_value
-      #   step = 0-step
-      # end
+      if (value - goal).abs > (prev_value - goal).abs
+        step = 0-step
+      end
       prev_value = value
       cycle += 1
     end
     param
   end
+  
 end

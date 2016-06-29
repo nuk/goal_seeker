@@ -20,7 +20,8 @@ class GoalSeekTest < Minitest::Test
       function: lambda { |x| 2*x })
   end
 
-  # def test_step_in_the_oposite_direction
-  #   assert_equal -1, (GoalSeeker.seek  start: 0 , goal: -1, function: lambda { |x| x })
-  # end
+  def test_step_in_the_oposite_direction
+    assert_equal -1, (GoalSeeker.seek  start: 0 , goal: -1, max_cycles:10, function: lambda { |x| x })
+
+  end
 end
