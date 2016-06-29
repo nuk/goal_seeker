@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'goal_seeker'
 
-class GoalSeekTest_Integers < Minitest::Test
+class GoalSeekTest < Minitest::Test
   def test_same
     assert_equal 0, (GoalSeeker.seek  :start=>0 , :goal=>0, :function=>lambda { |x| x })
   end
@@ -24,9 +24,9 @@ class GoalSeekTest_Integers < Minitest::Test
     assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
       function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
     assert_equal 3, (GoalSeeker.seek  start: 100 , goal: 0, max_cycles:100,
-        function: lambda { |x| x*x -5*x + 6 })
+        function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
     assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
-            function: lambda { |x| x*x -x - 2 })
+            function: lambda { |x| x*x -x - 2 }) # answers can be 2 or -1
   end
 
   def test_step_in_the_oposite_direction
