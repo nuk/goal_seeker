@@ -20,9 +20,13 @@ class GoalSeekTest_Integers < Minitest::Test
       function: lambda { |x| 2*x })
   end
 
-  def test_stop_after_a_while
+  def test_functions_with_multiple_answers
     assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
       function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
+    assert_equal 3, (GoalSeeker.seek  start: 100 , goal: 0, max_cycles:100,
+        function: lambda { |x| x*x -5*x + 6 })
+    assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
+            function: lambda { |x| x*x -x - 2 })
   end
 
   def test_step_in_the_oposite_direction
