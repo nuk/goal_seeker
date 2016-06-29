@@ -32,4 +32,11 @@ class GoalSeekTest < Minitest::Test
   def test_step_in_the_oposite_direction
     assert_equal -1, (GoalSeeker.seek  start: 0 , goal: -1, max_cycles:10, function: lambda { |x| x })
   end
+
+  def test_float
+    assert_equal 100, (GoalSeeker.seek  start: 0 , goal: 1000, step:0.01,
+      function: lambda do |x|
+        2*x
+      end)
+  end
 end
