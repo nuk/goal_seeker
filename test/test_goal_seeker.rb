@@ -34,9 +34,13 @@ class GoalSeekTest < Minitest::Test
   end
 
   def test_float
-    assert_equal 100, (GoalSeeker.seek  start: 0 , goal: 1000, step:0.01,
-      function: lambda do |x|
-        2*x
-      end)
+    f = Proc.new do |loan_value|
+      rate = 2.06/100
+      periods = 95
+      payment = (loan_value*rate)/(1-((1+rate)**(-periods)));
+      payment
+    end
+    assert_equal 100, (GoalSeeker.seek  start: 0 , goal: -23.16, step:0.01,
+      function: f)
   end
 end
