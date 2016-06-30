@@ -24,9 +24,9 @@ class GoalSeekTest < Minitest::Test
     assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
       function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
     assert_equal 3, (GoalSeeker.seek  start: 100 , goal: 0, max_cycles:100,
-        function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
+      function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
     assert_equal 2, (GoalSeeker.seek  start: 0 , goal: 0, max_cycles:100,
-            function: lambda { |x| x*x -x - 2 }) # answers can be 2 or -1
+      function: lambda { |x| x*x -x - 2 }) # answers can be 2 or -1
   end
 
   def test_step_in_the_oposite_direction
@@ -34,13 +34,10 @@ class GoalSeekTest < Minitest::Test
   end
 
   def test_float
-    f = Proc.new do |loan_value|
-      rate = 2.06/100
-      periods = 95
-      payment = (loan_value*rate)/(1-((1+rate)**(-periods)));
-      payment
+    f = Proc.new do |value|
+       (value*2.06/100)/(1-((1+2.06/100)**(-95)));
     end
-    assert_equal -962.24, (GoalSeeker.seek  start: 0 , goal: -23.16, step:0.01,
+    assert_equal -962.25, (GoalSeeker.seek  start: 0 , goal: -23.16, step:0.01,
       max_cycles:1000*1000, function: f)
   end
 end
