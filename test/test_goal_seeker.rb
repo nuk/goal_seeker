@@ -40,7 +40,7 @@ class GoalSeekTest < Minitest::Test
       payment = (loan_value*rate)/(1-((1+rate)**(-periods)));
       payment
     end
-    assert_equal 100, (GoalSeeker.seek  start: 0 , goal: -23.16, step:0.01,
-      function: f)
+    assert_equal -962.24, (GoalSeeker.seek  start: 0 , goal: -23.16, step:0.01,
+      max_cycles:1000*1000, function: f)
   end
 end
