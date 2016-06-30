@@ -16,23 +16,30 @@ class GoalSeeker
   end
 
   def calculate
-    param = @start
-    prev_value = value = @function.call param
-    cycle = 0;
-    @current_step = @step
-    while value != @goal and cycle < @max_cycles
-      param += @current_step
-      value = @function.call param
-      change_direction_if_needed value, prev_value
-      prev_value = value
-      cycle += 1
+    reset_calculation
+    while keep_checking
+      @param += @current_step
+      @value = @function.call @param
+      change_direction_if_needed
+      @prev_value = @value
+      @cycle += 1
     end
-    param.round(2)
+    @param.round(2)
   end
 
+  def reset_calculation
+    @param = @start
+    @prev_value = @value = @function.call @param
+    @cycle = 0;
+    @current_step = @step
+  end
+
+  def keep_checking() @value != @goal and @cycle < @max_cycles end
+
   def diff_goal(v) (v-@goal).abs end
-  def change_direction_if_needed value, prev_value
-    @current_step = 0-@current_step if diff_goal(value) > diff_goal(prev_value)
+
+  def change_direction_if_needed
+    @current_step = -@current_step if diff_goal(@value) > diff_goal(@prev_value)
   end
 
 
