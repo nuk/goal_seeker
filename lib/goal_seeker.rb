@@ -32,9 +32,7 @@ class GoalSeeker
 
   def diff_goal(v) (v-@goal).abs end
   def change_direction_if_needed value, prev_value
-    if diff_goal(value) > diff_goal(prev_value)
-      @current_step = 0-@current_step
-    end
+    @current_step = 0-@current_step if diff_goal(value) > diff_goal(prev_value)
   end
 
 
