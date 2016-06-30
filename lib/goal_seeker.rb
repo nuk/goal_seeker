@@ -24,7 +24,7 @@ class GoalSeeker
       param += step
       value = @function.call param
       # puts "#{param} : #{value}"
-      if (value - @goal).abs > (prev_value - @goal).abs
+      if diff_goal value > diff_goal prev_value 
         step = 0-step
       end
       prev_value = value
@@ -32,5 +32,8 @@ class GoalSeeker
     end
     param.round(2)
   end
+
+  def diff_goal(v) (v-@goal).abs end
+
 
 end
