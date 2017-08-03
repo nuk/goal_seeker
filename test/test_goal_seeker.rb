@@ -50,13 +50,17 @@ class GoalSeekTest < Minitest::Test
     f = Proc.new do |interest|
       total = 0
       (1..57).each do |t|
-        total += BigDecimal.new('787.00') / ((1 + interest)**t)
+        total += 787.00 / ((1 + interest)**t)
       end
       total
     end
 
-    assert_in_epsilon 0.0210, (GoalSeeker.seek start: BigDecimal.new('0.0001'),
-      goal: BigDecimal.new('26000.00'), step: BigDecimal.new('0.0000001'),
-      max_cycles: 1000 * 1000 * 100, function: f), 0.0001
+    assert_in_epsilon 0.0210, (GoalSeeker.seek start: 0.0210,
+      goal: 26000.00, step: 0.00001,
+      max_cycles: 100000, function: f, seeker_type: :brute_force), 0.00001
+  end
+
+  def test_raise_exception_for_unknown_seeker_type
+    assert_raises(ArgumentError) {GoalSeeker.seek  :start=>0 , :goal=>0, :function=>lambda { |x| x }, :seeker_type=>:unknown_seeker}
   end
 end
