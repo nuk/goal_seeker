@@ -1,15 +1,3 @@
-class GoalSeeker
-  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
-  FIXNUM_MIN = -(2**(0.size * 8 -2))
-
-  def self.seek start:, goal:, step:1, max_cycles:FIXNUM_MAX, function:
-    # seeker = BruteForceSeeker.new start, goal, step, max_cycles, function
-    seeker = BinarySearchSeeker.new start, goal, step, max_cycles, function
-    seeker.calculate
-  end
-
-end
-
 class BruteForceSeeker
   def initialize(start, goal, step, max_cycles, function)
     @start = start
@@ -29,7 +17,7 @@ class BruteForceSeeker
       change_direction_if_needed
       @cycle += 1
     end
-    @param.round(2)
+    @param.round(4)
   end
 
   def reset_calculation
@@ -97,5 +85,19 @@ class BinarySearchSeeker
       @end_value = mid_value
     end
   end
+end
 
+class GoalSeeker
+  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
+  FIXNUM_MIN = -(2**(0.size * 8 -2))
+  SEEKERS = {
+    brute_force: BruteForceSeeker,
+    binary: BinarySearchSeeker
+  }.freeze
+
+  def self.seek start:, goal:, step:1, max_cycles:FIXNUM_MAX, function:, seeker_type: :binary
+    raise ArgumentError, "Unknown seeker type '#{seeker_type}' - only #{SEEKERS.keys} available" unless SEEKERS.key? seeker_type
+    seeker = SEEKERS[seeker_type].new start, goal, step, max_cycles, function
+    seeker.calculate
+  end
 end

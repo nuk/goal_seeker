@@ -45,4 +45,22 @@ class GoalSeekTest < Minitest::Test
     assert_in_epsilon -1152.70, (GoalSeeker.seek  start: 0 , goal: -27.38, step:0.01,
       max_cycles:1000*1000, function: f), 0.01
   end
+
+  def test_compound_interest_rate
+    f = Proc.new do |interest|
+      total = 0
+      (1..57).each do |t|
+        total += 787.00 / ((1 + interest)**t)
+      end
+      total
+    end
+
+    assert_in_epsilon 0.0210, (GoalSeeker.seek start: 0.01,
+      goal: 26000.00, step: 0.00001,
+      max_cycles: 100000, function: f, seeker_type: :brute_force), 0.00001
+  end
+
+  def test_raise_exception_for_unknown_seeker_type
+    assert_raises(ArgumentError) {GoalSeeker.seek  :start=>0 , :goal=>0, :function=>lambda { |x| x }, :seeker_type=>:unknown_seeker}
+  end
 end
