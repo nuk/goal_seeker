@@ -55,7 +55,7 @@ class GoalSeekTest < Minitest::Test
       total
     end
 
-    assert_in_epsilon 0.0210, (GoalSeeker.seek start: 0.0210,
+    assert_in_epsilon 0.0210, (GoalSeeker.seek start: 0.01,
       goal: 26000.00, step: 0.00001,
       max_cycles: 100000, function: f, seeker_type: :brute_force), 0.00001
   end
