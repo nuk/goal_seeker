@@ -45,4 +45,18 @@ class GoalSeekTest < Minitest::Test
     assert_in_epsilon -1152.70, (GoalSeeker.seek  start: 0 , goal: -27.38, step:0.01,
       max_cycles:1000*1000, function: f), 0.01
   end
+
+  def test_compound_interest_rate
+    f = Proc.new do |interest|
+      total = 0
+      (1..57).each do |t|
+        total += BigDecimal.new('787.00') / ((1 + interest)**t)
+      end
+      total
+    end
+
+    assert_in_epsilon 0.0210, (GoalSeeker.seek start: BigDecimal.new('0.0001'),
+      goal: BigDecimal.new('26000.00'), step: BigDecimal.new('0.0000001'),
+      max_cycles: 1000 * 1000 * 100, function: f), 0.0001
+  end
 end
