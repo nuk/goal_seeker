@@ -17,6 +17,7 @@ Usage
     seeker_type # [Optional] Defines which algorithm will be used to search for the goal value. Can be:
     # :binary (default): Will use a binary search to find the best fit
     # :brute_force: Will look sequentially for the best fit. This algorithm also receives a `step` value that defines the increment of each step, Default is set to 1.
+    # :genetic: Will use a very simple genetic algorithm to solve find the best fit.
   )
 ```
 
@@ -31,3 +32,8 @@ _____________
     function: lambda { |x| x*x -5*x + 6 }
   ) # Will return 3 (the other solution to the equation is 2 =] )
 ```
+
+Running tests
+____________
+
+Just go and `rake test`

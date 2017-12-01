@@ -60,6 +60,15 @@ class GoalSeekTest < Minitest::Test
       max_cycles: 100000, function: f, seeker_type: :brute_force), 0.00001
   end
 
+  def test_genetic_seeker
+    value = (
+      GoalSeeker.seek  start: 0 , goal: 0, max_cycles: 1000_000,
+      function: lambda { |x| x*x -5*x + 6 }, # answers can be 2 or 3
+      seeker_type: :genetic
+    )
+    refute( !(value == 2 or value == 3), "#{value} is not 2 or 3")
+  end
+
   def test_raise_exception_for_unknown_seeker_type
     assert_raises(ArgumentError) {GoalSeeker.seek  :start=>0 , :goal=>0, :function=>lambda { |x| x }, :seeker_type=>:unknown_seeker}
   end
