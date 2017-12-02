@@ -1,5 +1,5 @@
 class BinarySearchSeeker
-  def initialize(start, goal, step, max_cycles, function)
+  def initialize(start, goal, step, max_cycles, _epsilon, function)
     @start = start
     @end = max_cycles*step
     @goal = goal

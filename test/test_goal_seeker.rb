@@ -61,12 +61,19 @@ class GoalSeekTest < Minitest::Test
   end
 
   def test_genetic_seeker
+    epsilon = 0.0000000000001
     value = (
       GoalSeeker.seek  start: 0 , goal: 0, max_cycles: 1000_000,
       function: lambda { |x| x*x -5*x + 6 }, # answers can be 2 or 3
-      seeker_type: :genetic
+      seeker_type: :genetic,
+      epsilon: epsilon
     )
-    refute( !(value == 2 or value == 3), "#{value} is not 2 or 3")
+    epsilon_2 = (2 - value).abs
+    epsilon_3 = (3 - value).abs
+    refute(
+      !(epsilon_2 <= epsilon or epsilon_3 <= epsilon ),
+      "#{value} is not close to 2 or 3"
+    )
   end
 
   def test_raise_exception_for_unknown_seeker_type

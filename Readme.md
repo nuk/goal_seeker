@@ -17,7 +17,7 @@ Usage
     seeker_type # [Optional] Defines which algorithm will be used to search for the goal value. Can be:
     # :binary (default): Will use a binary search to find the best fit
     # :brute_force: Will look sequentially for the best fit. This algorithm also receives a `step` value that defines the increment of each step, Default is set to 1.
-    # :genetic: Will use a very simple genetic algorithm to solve find the best fit.
+    # :genetic: Will use a very simple genetic algorithm to solve find the best fit. There's an optional `epsilon` argument that can be used to specify how accurate you expect the result to be. Default is set to 0. [WARNING] this is a probabilistic strategy, so the timing to solve things can vary. So, use with care.
   )
 ```
 

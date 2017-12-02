@@ -11,9 +11,16 @@ class GoalSeeker
     genetic: GeneticSeeker,
   }.freeze
 
-  def self.seek start:, goal:, step:1, max_cycles:FIXNUM_MAX, function:, seeker_type: :binary
+  def self.seek(
+      start:, goal:,
+      step:1,
+      max_cycles:FIXNUM_MAX,
+      epsilon: 0,
+      function:,
+      seeker_type: :binary
+    )
     raise ArgumentError, "Unknown seeker type '#{seeker_type}' - only #{SEEKERS.keys} available" unless SEEKERS.key? seeker_type
-    seeker = SEEKERS[seeker_type].new start, goal, step, max_cycles, function
+    seeker = SEEKERS[seeker_type].new start, goal, step, max_cycles, epsilon, function
     seeker.calculate
   end
 end
