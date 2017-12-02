@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "Same up there"
   s.authors     = ["Fabricio Buzeto"]
   s.email       = '@nukdf'
-  s.files       = ["lib/goal_seeker.rb"]
+  s.files       =  Dir['lib/*.rb']
   s.homepage    = 'http://github.com/nuk/goal_seeker'
   s.license     = 'MIT'
 end
