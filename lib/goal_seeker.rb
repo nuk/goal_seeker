@@ -87,7 +87,7 @@ class BinarySearchSeeker
   end
 end
 
-
+# TODO This is very naive, there are some ways to improve convergence.
 class GeneticSeeker
   def initialize(start, goal, step, max_cycles, function)
     @start = start

@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'goal_seeker'
-  s.version     = '0.0.3'
-  s.date        = '2017-08-03'
+  s.version     = '0.0.4'
+  s.date        = '2017-12-01'
   s.summary     = "Similar to Excel Goal Seek function, but in ruby =]"
   s.description = "Same up there"
   s.authors     = ["Fabricio Buzeto"]
