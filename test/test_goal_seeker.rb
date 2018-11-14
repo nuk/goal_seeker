@@ -23,7 +23,7 @@ class GoalSeekTest < Minitest::Test
 
   def test_functions_with_multiple_answers
     assert_equal 3, (GoalSeeker.seek  start: 100 , goal: 0, max_cycles:100,
-      function: lambda { |x| x*x -5*x + 6 }) # answers can be 2 or 3
+      function: lambda { |x| (x * x - 5 * x + 6) }) # answers can be 2 or 3
   end
 
   def test_step_in_the_oposite_direction
@@ -55,16 +55,16 @@ class GoalSeekTest < Minitest::Test
       total
     end
 
-    assert_in_epsilon 0.0210, (GoalSeeker.seek start: 0.01,
-      goal: 26000.00, step: 0.00001,
-      max_cycles: 100000, function: f, seeker_type: :brute_force), 0.00001
+    assert_in_epsilon 0.0210, (GoalSeeker.seek start: BigDecimal.new('0.01000'),
+      goal: BigDecimal.new('26000.00'), step: 0.00001,
+      max_cycles: 100000, function: f, seeker_type: :brute_force), 0.001
   end
 
   def test_genetic_seeker
     epsilon = 0.0000000000001
     value = (
       GoalSeeker.seek  start: 0 , goal: 0, max_cycles: 1000_000,
-      function: lambda { |x| x*x -5*x + 6 }, # answers can be 2 or 3
+      function: lambda { |x| (x * x - 5 * x + 6) }, # answers can be 2 or 3
       seeker_type: :genetic,
       epsilon: epsilon
     )

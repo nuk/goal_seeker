@@ -17,7 +17,7 @@ class BruteForceSeeker
       change_direction_if_needed
       @cycle += 1
     end
-    @param.round(4)
+    @param
   end
 
   def reset_calculation
