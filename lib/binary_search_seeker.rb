@@ -1,14 +1,14 @@
 class BinarySearchSeeker
-  def initialize(start, goal, step, max_cycles, epsilon, finish, function)
-    @start = start
-    @end = finish
-    if finish.nil?
-      @end = step * max_cycles
+  def initialize(**args)
+    @start = args[:start]
+    @end = args[:finish]
+    if args[:finish].nil?
+      @end = args[:step] * args[:max_cycles]
     end
-    @goal = goal
-    @epsilon = epsilon
-    @max_cycles = max_cycles
-    @function = function
+    @goal = args[:goal]
+    @epsilon = args[:epsilon]
+    @max_cycles = args[:max_cycles]
+    @function = args[:function]
     @cycle = 0;
     define_start_and_end
   end

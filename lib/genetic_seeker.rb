@@ -1,13 +1,13 @@
 # TODO This is very naive, there are some ways to improve convergence.
 class GeneticSeeker
-  def initialize(start, goal, step, max_cycles, epsilon, _finish, function)
-    @start = start
-    @goal = goal
-    @step = step
-    @max_cycles = max_cycles
-    @function = function
-    @end = max_cycles*step
-    @epsilon = epsilon
+  def initialize(**args)
+    @start = args[:start]
+    @goal = args[:goal]
+    @step = args[:step]
+    @max_cycles = args[:max_cycles]
+    @function = args[:function]
+    @end = args[:max_cycles]*@step
+    @epsilon = args[:epsilon]
     @cycle = 0
   end
 
