@@ -17,10 +17,11 @@ class GoalSeeker
       max_cycles:FIXNUM_MAX,
       epsilon: 0,
       function:,
+      finish: nil,
       seeker_type: :binary
     )
     raise ArgumentError, "Unknown seeker type '#{seeker_type}' - only #{SEEKERS.keys} available" unless SEEKERS.key? seeker_type
-    seeker = SEEKERS[seeker_type].new start, goal, step, max_cycles, epsilon, function
+    seeker = SEEKERS[seeker_type].new start, goal, step, max_cycles, epsilon, finish, function
     seeker.calculate
   end
 end

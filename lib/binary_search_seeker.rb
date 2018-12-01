@@ -1,9 +1,12 @@
 class BinarySearchSeeker
-  def initialize(start, goal, step, max_cycles, _epsilon, function)
+  def initialize(start, goal, step, max_cycles, epsilon, finish, function)
     @start = start
-    @end = max_cycles*step
+    @end = finish
+    if finish.nil?
+      @end = step * max_cycles
+    end
     @goal = goal
-    @step = step
+    @epsilon = epsilon
     @max_cycles = max_cycles
     @function = function
     @cycle = 0;
@@ -14,7 +17,7 @@ class BinarySearchSeeker
     @start_value = @function.call @start
     if @start_value > @goal
       @end = @start
-      @start = @max_cycles*@step*(-1)
+      @start = @max_cycles*(-1)
     end
     @start_value = @function.call @start
     @end_value = @function.call @end
@@ -27,9 +30,10 @@ class BinarySearchSeeker
       @cycle += 1
       mid_way = (@start + @end) / 2
       mid_value = @function.call mid_way
-      return mid_way if mid_value == @goal
+      goal_distance = (mid_value - @goal).abs
+      return mid_way if goal_distance.zero?
       update_boundaries mid_way, mid_value
-    end while (@start - @end).abs > @step.abs and @cycle < @max_cycles
+    end while goal_distance > @epsilon && @cycle < @max_cycles
     mid_way
   end
 

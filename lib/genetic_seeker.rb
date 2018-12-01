@@ -1,6 +1,6 @@
 # TODO This is very naive, there are some ways to improve convergence.
 class GeneticSeeker
-  def initialize(start, goal, step, max_cycles, epsilon, function)
+  def initialize(start, goal, step, max_cycles, epsilon, _finish, function)
     @start = start
     @goal = goal
     @step = step

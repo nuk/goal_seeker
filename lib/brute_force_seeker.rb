@@ -1,5 +1,5 @@
 class BruteForceSeeker
-  def initialize(start, goal, step, max_cycles, _epsilon, function)
+  def initialize(start, goal, step, max_cycles, _epsilon, _finish, function)
     @start = start
     @goal = goal
     @step = step
