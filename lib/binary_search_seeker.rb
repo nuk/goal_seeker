@@ -1,21 +1,20 @@
 class BinarySearchSeeker
-  def initialize(start, goal, step, max_cycles, _epsilon, function)
-    @start = start
-    @end = max_cycles*step
-    @goal = goal
-    @step = step
-    @max_cycles = max_cycles
-    @function = function
+  def initialize(**args)
+    @start = args[:start]
+    @end = args[:finish]
+    if args[:finish].nil?
+      @end = args[:step] * args[:max_cycles]
+    end
+    @goal = args[:goal]
+    @epsilon = args[:epsilon]
+    @max_cycles = args[:max_cycles]
+    @function = args[:function]
     @cycle = 0;
     define_start_and_end
+    @last_attempt = nil
   end
 
   def define_start_and_end
-    @start_value = @function.call @start
-    if @start_value > @goal
-      @end = @start
-      @start = @max_cycles*@step*(-1)
-    end
     @start_value = @function.call @start
     @end_value = @function.call @end
   end
@@ -25,21 +24,39 @@ class BinarySearchSeeker
     return @end if @end_value == @goal
     begin
       @cycle += 1
+      
       mid_way = (@start + @end) / 2
+      factor = 1/@epsilon
+      mid_way = (mid_way * factor).floor / factor
+
+      return mid_way if @last_attempt == mid_way
+      @last_attempt = mid_way
+
       mid_value = @function.call mid_way
-      return mid_way if mid_value == @goal
+      goal_distance = (mid_value - @goal).abs
+
+      # This is necessary since BigDecimal has a Negative Zero
+      # Which is different from a Positive Zero
+      # This keeps the results consistent no matter which
+      # type of number you're using
+      return mid_way if goal_distance.zero?
       update_boundaries mid_way, mid_value
-    end while (@start - @end).abs > @step.abs and @cycle < @max_cycles
+    end while goal_distance > @epsilon && @cycle < @max_cycles
     mid_way
   end
 
   def update_boundaries mid_way, mid_value
-    if (@start_value - @goal).abs > (@end_value - @goal).abs
+    if within @end_value, mid_value, @goal
       @start = mid_way
       @start_value = mid_value
     else
       @end = mid_way
       @end_value = mid_value
     end
+  end
+
+  def within a, b, value
+     (a <= value && value <= b) ||
+      (b <= value && value <= a)
   end
 end

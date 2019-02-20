@@ -1,10 +1,10 @@
 class BruteForceSeeker
-  def initialize(start, goal, step, max_cycles, _epsilon, function)
-    @start = start
-    @goal = goal
-    @step = step
-    @max_cycles = max_cycles
-    @function = function
+  def initialize(**args)
+    @start = args[:start]
+    @goal = args[:goal]
+    @step = args[:step]
+    @max_cycles = args[:max_cycles]
+    @function = args[:function]
     @flipped = @stop = false
   end
 
