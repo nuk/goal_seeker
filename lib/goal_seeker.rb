@@ -3,8 +3,8 @@ require 'binary_search_seeker'
 require 'genetic_seeker'
 
 class GoalSeeker
-  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
-  FIXNUM_MIN = -(2**(0.size * 8 -2))
+  FIXNUM_MAX = (2 ** (0.size * 8 - 2) - 1)
+  FIXNUM_MIN = -(2 ** (0.size * 8 - 2))
   SEEKERS = {
     brute_force: BruteForceSeeker,
     binary: BinarySearchSeeker,
