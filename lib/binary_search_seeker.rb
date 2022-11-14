@@ -1,5 +1,5 @@
 class BinarySearchSeeker
-  def initialize(**args)
+  def initialize(args)
     @start = args[:start]
     @end = args[:finish]
     if args[:finish].nil?
